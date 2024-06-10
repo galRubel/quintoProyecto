@@ -7,7 +7,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 4000))
+    port =4000
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=port)
 
