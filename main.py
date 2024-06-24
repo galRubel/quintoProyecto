@@ -3,9 +3,9 @@
 from fastapi import FastAPI
 import uvicorn
 from typing import Union
-uvicorn.run( host="0.0.0.0")
 
 app = FastAPI()
+# uvicorn.run(app, host="0.0.0.0")
 
 @app.get("/")
 async def read_root():
