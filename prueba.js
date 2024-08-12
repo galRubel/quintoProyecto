@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-const ipAddress = 'quintoproyecto.onrender.com'; 
+const render = 'quintoproyecto.onrender.com'; 
 
-axios.get(`http://${ipAddress}`)
+axios.get(`http://${render}`)
   .then(response => {
     console.log('Response data:', response.data);
   })
