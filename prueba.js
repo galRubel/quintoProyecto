@@ -7,5 +7,5 @@ axios.get(`http://${ipAddress}`)
     console.log('Response data:', response.data);
   })
   .catch(error => {
-    console.eror('Error:', error.message);
+    console.error('Error:', error.message);
   });

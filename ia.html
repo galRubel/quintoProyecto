@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo API Google Gemini</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+</head>
+<body>
+    <h1>Generador de texto con Google Gemini</h1>
+    <input type="text" id="inputText" placeholder="Escribe algo aquí...">
+    <button id="generateButton">Generar</button>
+    <p id="responseText"></p>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+        const API_KEY = 'AIzaSyDvnumRKZ3buAEEkQYToOlo3JgiaQekIQQ';
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        document.getElementById('generateButton').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest"});
+            const prompt = inputText;
+
+            try {
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const md = window.markdownit();
+                const md_result = md.render(response.text());
+                document.getElementById('responseText').innerHTML = md_result;
+            } catch (error) {
+                console.error('Error al generar contenido:', error);
+            }
+        });
+    </script>
+</body>
+</html>

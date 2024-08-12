@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrar ChatGPT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .response {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ChatGPT Integration</h1>
+        <textarea id="inputMessage" placeholder="Escribe tu mensaje..."></textarea>
+        <button onclick="sendMessage()">Enviar</button>
+        <div class="response" id="responseContainer"></div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const inputMessage = document.getElementById("inputMessage").value;
+            const responseContainer = document.getElementById("responseContainer");
+
+            // Aquí va tu clave API de OpenAI
+            const apiKey = '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';
+
+            // Configuración de la solicitud
+            const headers = {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            };
+
+            const body = JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: inputMessage }]
+            });
+
+            try {
+                // Realizar la solicitud a la API de OpenAI
+                const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
+                    headers: headers,
+                    body: body
+                });
+
+                const data = await response.json();
+                const message = data.choices[0].message.content;
+
+                // Mostrar la respuesta en la página
+                responseContainer.textContent = message;
+            } catch (error) {
+                console.error("Error al enviar el mensaje:", error);
+                responseContainer.textContent = "Hubo un error al comunicarse con la API.";
+            }
+        }
+    </script>
+</body>
+</html>
