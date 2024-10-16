@@ -8,7 +8,7 @@ def get_user_input(prompt):
 
 def main():
     # Fetch the API key from the system environment
-    api_key = "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"
+    api_key = "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"
     if not api_key:
         print("API key not found in environment. Please set OPENAI_API_KEY.")
         return
